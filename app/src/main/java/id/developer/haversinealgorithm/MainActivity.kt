@@ -55,13 +55,8 @@ class MainActivity : AppCompatActivity() {
             var latEnd: Float = prefs2.getFloat(applicationContext.getString(R.string.LAT_END), 0.0f)
             var lngEnd: Float = prefs2.getFloat(applicationContext.getString(R.string.LNG_END), 0.0f)
 
-            Toast.makeText(this,
-                "Result " + latStart + "," + lngStart + "," + latEnd + "," + lngEnd,
-                Toast.LENGTH_LONG).show()
-
             var startPos : String = "Start Position: " + latStart + " , " + lngStart
             var endPos : String = "Start Position: " + latEnd + " , " + lngEnd
-
 
             result.setText("" + HaversineAlgorithm.calculate(latStart, lngStart, latEnd, lngEnd))
             startPosition.setText(startPos)
@@ -89,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         // Start the autocomplete intent.
         val intent = Autocomplete.IntentBuilder(
             AutocompleteActivityMode.FULLSCREEN, fields
-        ).setCountry("ID") //NIGERIA
+        ).setCountry("ID") //INDONESIA
             .build(this)
         startActivityForResult(intent, requestCode)
     }
@@ -117,8 +112,8 @@ class MainActivity : AppCompatActivity() {
         }else if (requestCode == AUTOCOMPLETE_REQUEST_CODE_END){
             if (resultCode == Activity.RESULT_OK) {
                 val place = Autocomplete.getPlaceFromIntent(data!!)
-                endLoc.setText(place.name)
                 GlobalFunction.addLatLngEndPositon(this@MainActivity, place.latLng)
+                endLoc.setText(place.name)
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
